@@ -37,41 +37,53 @@ def register_view(request):
         return redirect("home")
     return render(request, "main/register.html")
 
+# views.py
+
+from django.shortcuts import render, redirect
+from django.utils import timezone
+from .models import Student, AttendanceRecord
+
 def sign_in(request):
     if request.method == 'POST':
         registration_id = request.POST.get('registration_id')
-        # Check if the student exists
         try:
             student = Student.objects.get(registration_id=registration_id)
+            # Check if the student is already signed in
+            if AttendanceRecord.objects.filter(student=student, sign_out_time=None).exists():
+                # If the student is already signed in, redirect with a message
+                return render(request, 'sign_in.html', {'error': 'You are already signed in.'})
+            else:
+                # Create a new attendance record for sign-in
+                AttendanceRecord.objects.create(student=student, sign_in_time=timezone.now())
+                return redirect('home')
         except Student.DoesNotExist:
-            return render(request, 'main/error.html', {'message': 'User does not exist.'})
-        # Check if the student already signed in
-        if AttendanceRecord.objects.filter(student=student, sign_out_time__isnull=True).exists():
-            return render(request, 'main/error.html', {'message': 'You are already signed in.'})
-        # Create a new attendance record for sign in
-        attendance_record = AttendanceRecord.objects.create(student=student, sign_in_time=timezone.now())
-        return HttpResponse("done")
+            return render(request, 'sign_in.html', {'error': 'Invalid registration ID.'})
     
     return render(request, 'main/sign_in.html')
 
 def sign_out(request):
     if request.method == 'POST':
         registration_id = request.POST.get('registration_id')
-        # Check if the student exists
         try:
             student = Student.objects.get(registration_id=registration_id)
+            # Check if the student is signed in
+            if AttendanceRecord.objects.filter(student=student, sign_out_time=None).exists():
+                # Get the latest attendance record for the student
+                attendance_record = AttendanceRecord.objects.filter(student=student, sign_out_time=None).latest('sign_in_time')
+                # Update the sign-out time
+                attendance_record.sign_out_time = timezone.now()
+                # Calculate the hours worked
+                sign_in_time = attendance_record.sign_in_time
+                sign_out_time = attendance_record.sign_out_time
+                hours_worked = (sign_out_time - sign_in_time).total_seconds() / 3600  # Convert seconds to hours
+                attendance_record.hours_worked = round(hours_worked, 2)  # Round to 2 decimal places
+                attendance_record.save()
+                return redirect('home')
+            else:
+                # If the student is not signed in, redirect with a message
+                return render(request, 'sign_out.html', {'error': 'You are not signed in.'})
         except Student.DoesNotExist:
-            return render(request, 'main/error.html', {'message': 'User does not exist.'})
-        # Get the student's current sign-in record
-        attendance_record = AttendanceRecord.objects.filter(student=student, sign_out_time__isnull=True).first()
-        if not attendance_record:
-            return render(request, 'main/error.html', {'message': 'You are not signed in.'})
-        # Update sign-out time and calculate hours worked
-        attendance_record.sign_out_time = timezone.now()
-        time_diff = attendance_record.sign_out_time - attendance_record.sign_in_time
-        attendance_record.hours_worked = round(time_diff.total_seconds() / 3600) + 1
-        attendance_record.save()
-        return HttpResponse("done")
+            return render(request, 'sign_out.html', {'error': 'Invalid registration ID.'})
     
     return render(request, 'main/sign_out.html')
 
