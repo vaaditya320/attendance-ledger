@@ -1,0 +1,42 @@
+<!-- index.html -->
+
+{% extends 'main/main.html' %}
+
+{% block title %}Attendance Tracking System{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="d-flex align-items-center justify-content-center mt-5">
+        <h3 id="Welcome">Welcome to IDEA Lab</h3>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-md-4">
+            <a href="verify" class="btn btn-primary btn-lg btn-block">Register</a>
+        </div>
+        <div class="col-md-4">
+            <a href="sign-in" class="btn btn-primary btn-lg btn-block">Sign In</a>
+        </div>
+        <div class="col-md-4">
+            <a href="sign-out" class="btn btn-primary btn-lg btn-block">Sign Out</a>
+        </div>
+
+        
+
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-md-4">
+            <a href="ledger" class="btn btn-warning btn-lg btn-block">Ledger</a>
+        </div>
+        <div class="col-md-4 ">
+            <a href="admin/" class="btn btn-warning btn-lg btn-block">Admin</a>
+        </div>
+        <div class="col-md-4 ">
+            <a href="#" class="btn btn-warning btn-lg btn-block">Data</a>
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

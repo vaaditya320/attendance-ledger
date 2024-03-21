@@ -1,0 +1,33 @@
+<!-- ledger.html -->
+
+{% extends 'main/main.html' %}
+
+{% block title %}Attendance Ledger{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Attendance Ledger</h1>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Student Name</th>
+                <th>Registration ID</th>
+                <th>Sign In Time</th>
+                <th>Sign Out Time</th>
+                <th>Hours Worked</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in records %}
+            <tr>
+                <td>{{ record.student.full_name }}</td>
+                <td>{{ record.student.registration_id }}</td>
+                <td>{{ record.sign_in_time }}</td>
+                <td>{{ record.sign_out_time }}</td>
+                <td>{{ record.hours_worked }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
