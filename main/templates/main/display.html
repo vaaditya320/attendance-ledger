@@ -1,0 +1,64 @@
+<!-- display.html -->
+
+{% extends 'main/main.html' %}
+
+{% block title %}Student Data{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- Download button -->
+    <form action="{% url 'download_data' %}" method="post" id="downloadForm">
+        {% csrf_token %}
+        <!-- Add hidden input field to store student data as JSON -->
+        <input type="hidden" name="student_data" id="studentData">
+        <button type="button" class="btn btn-primary" onclick="downloadData()">Download Data</button>
+    </form>
+</div>
+
+<h1 class="text-center mt-5 mb-4">Student Data</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Registration ID</th>
+            <th>Total Time Spent (Hours:Minutes)</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for student in student_data %}
+        <tr>
+            <td>{{ student.name }}</td>
+            <td>{{ student.registration_id }}</td>
+            <td>{{ student.total_hours }}:{{ student.total_minutes | stringformat:"02d" }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script>
+    function downloadData() {
+        // Get the student data from the HTML table
+        var studentData = [];
+        var tableRows = document.querySelectorAll('tbody tr');
+        tableRows.forEach(function(row) {
+            var name = row.cells[0].textContent;
+            var registrationId = row.cells[1].textContent;
+            var totalTime = row.cells[2].textContent;
+            var [hours, minutes] = totalTime.split(':');
+            studentData.push({
+                'name': name,
+                'registration_id': registrationId,
+                'total_hours': hours,
+                'total_minutes': minutes
+            });
+        });
+
+        // Convert student data to JSON and set the value of the hidden input field
+        var jsonData = JSON.stringify(studentData);
+        document.getElementById("studentData").value = jsonData;
+
+        // Submit the form
+        document.getElementById("downloadForm").submit();
+    }
+</script>
+{% endblock %}

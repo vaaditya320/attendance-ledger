@@ -26,4 +26,6 @@ urlpatterns = [
     path("sign-in/", sign_in, name="sign-in"),
     path("sign-out/", sign_out, name="sign-out"),
     path("ledger/", ledger, name="ledger"),
+    path("display/", display, name="display"),
+    path('download/', download_data, name='download_data'),
 ]
