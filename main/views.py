@@ -128,7 +128,7 @@ def display(request):
 
 
 def ledger(request):
-    records = AttendanceRecord.objects.all()
+    records = AttendanceRecord.objects.order_by('-sign_in_time')[:20]
     return render(request, 'main/ledger.html', {'records': records})
 
 def download_data(request):
