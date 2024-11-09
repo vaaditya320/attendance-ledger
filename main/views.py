@@ -133,17 +133,18 @@ def ledger(request):
 
 def download_data(request):
     if request.method == 'POST':
-        # Get the student data from the POST request
+        # Get the student data and file name from the POST request
         student_data_json = request.POST.get('student_data')
+        file_name = request.POST.get('file_name', 'student_data')  # Default to 'student_data' if no name is provided
         student_data = json.loads(student_data_json)
 
         # Create a CSV file with the student data
         response = HttpResponse(content_type='text/csv')
-        response['Content-Disposition'] = 'attachment; filename="student_data.csv"'
+        response['Content-Disposition'] = f'attachment; filename="{file_name}.csv"'
 
         # Create a CSV writer
         csv_writer = csv.writer(response)
-        
+
         # Write header row
         csv_writer.writerow(['Name', 'Registration ID', 'Total Time Spent (Hours:Minutes)'])
 

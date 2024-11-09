@@ -37,6 +37,13 @@
 
 <script>
     function downloadData() {
+        // Prompt the user for a file name
+        var fileName = prompt("Enter the name for your CSV file:", "student_data");
+        if (!fileName) {
+            // If the user cancels or doesn't enter a name, do nothing
+            return;
+        }
+
         // Get the student data from the HTML table
         var studentData = [];
         var tableRows = document.querySelectorAll('tbody tr');
@@ -57,8 +64,16 @@
         var jsonData = JSON.stringify(studentData);
         document.getElementById("studentData").value = jsonData;
 
+        // Set the file name as a hidden input field value
+        var fileNameInput = document.createElement("input");
+        fileNameInput.type = "hidden";
+        fileNameInput.name = "file_name";
+        fileNameInput.value = fileName;
+        document.getElementById("downloadForm").appendChild(fileNameInput);
+
         // Submit the form
         document.getElementById("downloadForm").submit();
     }
 </script>
+
 {% endblock %}
