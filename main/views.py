@@ -44,6 +44,7 @@ def register_view(request):
 def sign_in(request):
     if request.method == 'POST':
         registration_id = request.POST.get('registration_id')
+        registration_id.upper()
         try:
             student = Student.objects.get(registration_id=registration_id)
             # Check if the student is already signed in
@@ -111,22 +112,21 @@ def display(request):
             if record.minutes_worked is not None:
                 total_time += timedelta(minutes=int(record.minutes_worked))
 
-        # Convert total time to hours and minutes
+        # Convert total time to minutes
         total_minutes = int(total_time.total_seconds() // 60)
-        total_hours, total_minutes = divmod(total_minutes, 60)  # Get hours and remaining minutes
 
-        # Add student data to the list
-        student_data.append({
-            'name': student.full_name,
-            'registration_id': student.registration_id,
-            'total_hours': total_hours,
-            'total_minutes': total_minutes
-        })
+        # Only include students who have worked more than 1 minute
+        if total_minutes > 1:
+            total_hours, total_minutes = divmod(total_minutes, 60)  # Get hours and remaining minutes
+            student_data.append({
+                'name': student.full_name,
+                'registration_id': student.registration_id,
+                'total_hours': total_hours,
+                'total_minutes': total_minutes
+            })
 
-    # Pass student data to the template for rendering
+    # Pass the filtered student data to the template for rendering
     return render(request, 'main/display.html', {'student_data': student_data})
-
-
 def ledger(request):
     records = AttendanceRecord.objects.order_by('-sign_in_time')[:20]
     return render(request, 'main/ledger.html', {'records': records})

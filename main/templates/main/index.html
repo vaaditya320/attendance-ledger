@@ -5,38 +5,42 @@
 {% block title %}Attendance Tracking System{% endblock %}
 
 {% block content %}
-<div class="container">
-    <div class="d-flex align-items-center justify-content-center mt-5">
-        <h3 id="Welcome">Welcome to A.I.C.T.E  I.D.E.A Lab</h3>
+<div class="container mt-5">
+    <!-- Welcome Message -->
+    <div class="text-center mb-4">
+        <h2 id="Welcome" class="font-weight-bold text-primary">Welcome to A.I.C.T.E I.D.E.A Lab</h2>
+        <p class="text-muted">Manage your attendance efficiently and effortlessly</p>
     </div>
 
-    <div class="row mt-5">
-        <div class="col-md-4">
-            <a href="register" class="btn btn-primary btn-lg btn-block">Register</a>
+    <!-- Action Buttons Row 1 -->
+    <div class="row text-center mt-5">
+        <div class="col-md-6 mb-4">
+            <a href="sign-in" class="btn btn-outline-primary btn-lg w-100 py-3">
+                <i class="fas fa-sign-in-alt mr-2"></i> Sign In
+            </a>
         </div>
-        <div class="col-md-4">
-            <a href="sign-in" class="btn btn-primary btn-lg btn-block">Sign In</a>
+        <div class="col-md-6 mb-4">
+            <a href="sign-out" class="btn btn-outline-danger btn-lg w-100 py-3">
+                <i class="fas fa-sign-out-alt mr-2"></i> Sign Out
+            </a>
         </div>
-        <div class="col-md-4">
-            <a href="sign-out" class="btn btn-primary btn-lg btn-block">Sign Out</a>
-        </div>
-
-        
-
     </div>
 
-    <div class="row mt-5">
-        <div class="col-md-4">
-            <a href="ledger" class="btn btn-warning btn-lg btn-block">Ledger</a>
+    <!-- Action Buttons Row 2 -->
+    <div class="row text-center mt-3">
+        <div class="col-md-6 mb-4">
+            <a href="ledger" class="btn btn-warning btn-lg w-100 py-3">
+                <i class="fas fa-book mr-2"></i> Ledger
+            </a>
         </div>
-        <div class="col-md-4 ">
-            <a href="admin/" class="btn btn-warning btn-lg btn-block">Admin</a>
+        <div class="col-md-6 mb-4">
+            <a href="display" class="btn btn-success btn-lg w-100 py-3">
+                <i class="fas fa-chart-bar mr-2"></i> Display
+            </a>
         </div>
-        <div class="col-md-4 ">
-            <a href="display" class="btn btn-warning btn-lg btn-block">Display</a>
-        </div>
-
     </div>
-
 </div>
+
+<!-- FontAwesome and Bootstrap Icons for a more professional look -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 {% endblock %}

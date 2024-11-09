@@ -1,0 +1,60 @@
+# Python-related files
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.so
+
+# Environment variables
+.env
+
+# Django stuff
+*.log
+db.sqlite3
+*.pot
+*.pyc
+*.pyo
+__pycache__/
+
+# Media and uploaded files
+media/
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# Cache and backup files
+*.bak
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# PyCharm
+.idea/
+
+# VS Code
+.vscode/
+
+# Mac OS
+.DS_Store
+
+# Node modules (if using Node.js)
+node_modules/
+
+# Coverage reports
+htmlcov/
+.coverage
+*.cover
+*.coverage.*
+
+# Deployment files
+*.pem
+*.crt
+*.key
+
+# Static files
+staticfiles/
+static/
