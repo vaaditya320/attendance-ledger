@@ -64,7 +64,7 @@ def sign_out(request):
                 duration = sign_out_time - sign_in_time
                 
                 # Check if the student worked for at least 1 minute
-                if duration >= timedelta(minutes=1):
+                if duration >= timedelta(minutes=0):
                     # Calculate the minutes worked
                     minutes_worked = duration.total_seconds() / 60
                     attendance_record.sign_out_time = sign_out_time
@@ -137,9 +137,6 @@ def send_sign_out_email(student, sign_in_time, sign_out_time, minutes_worked):
                 color: #2d87f0;
                 text-decoration: none;
             }}
-            .footer img {{
-                width: 80px;
-            }}
             .button {{
                 display: inline-block;
                 background-color: #2d87f0;
@@ -158,21 +155,20 @@ def send_sign_out_email(student, sign_in_time, sign_out_time, minutes_worked):
             <div class="content">
                 <p>Dear {student.full_name},</p>
                 <p>We would like to extend our sincere thanks for your valuable time and effort in the Idea Lab on {localtime(sign_in_time).date()}.</p>
-                
+
                 <h3>Your Session Details:</h3>
                 <ul>
                     <li><strong>Sign-In Time:</strong> {localtime(sign_in_time).strftime('%H:%M')}</li>
                     <li><strong>Sign-Out Time:</strong> {localtime(sign_out_time).strftime('%H:%M')}</li>
                     <li><strong>Total Time Worked:</strong> {round(minutes_worked)} minutes</li>
                 </ul>
-                
+
                 <p>Your contributions help us improve the lab's environment and support your peers in their projects. We look forward to seeing you again!</p>
-                
+
                 <p>Thank you for being an important part of Team Idea Lab.</p>
                 <p><a href="https://www.piet.poornima.org/AICTE_IDEA_lab.html" class="button">Visit Idea Lab</a></p>
             </div>
             <div class="footer">
-                <img src="../../favicon.png" alt="Team Idea Lab Logo">
                 <p>&copy; {localtime(timezone.now()).year} Team Idea Lab. All rights reserved.</p>
                 <p>Have questions? <a href="mailto:aicte.idealab@poornima.org">Contact Us</a></p>
             </div>
@@ -183,14 +179,14 @@ def send_sign_out_email(student, sign_in_time, sign_out_time, minutes_worked):
 
     recipient_list = [student.email_id]
 
-    # Send the email with both plain text and HTML content
+    # Send the email using Django's built-in send_mail function
     send_mail(
         subject,
         "This email requires HTML support",  # Fallback plain text message
-        settings.EMAIL_HOST_USER,  # Sender's email from settings
+        settings.DEFAULT_FROM_EMAIL,
         recipient_list,
-        fail_silently=False,  # Set to False to raise an error in case of failure
-        html_message=html_message,  # HTML content for the email
+        fail_silently=False,
+        html_message=html_message,
     )
 
     

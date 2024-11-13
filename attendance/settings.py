@@ -130,13 +130,14 @@ STATICFILES_DIRS = [
 # WhiteNoise settings
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# Basic Email Configuration
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'  # Gmail's SMTP server
-EMAIL_PORT = 587  # Standard port for TLS
-EMAIL_USE_TLS = True  # Use TLS for secure connection
-EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')  # Your email address
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')  # Your app-specific password (if 2FA enabled)
+EMAIL_HOST = 'in-v3.mailjet.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.getenv('MAILJET_API_KEY')
+EMAIL_HOST_PASSWORD = os.getenv('MAILJET_API_SECRET')
+DEFAULT_FROM_EMAIL = 'vaaditya320@gmail.com'
+
 
 
 # Default primary key field type
