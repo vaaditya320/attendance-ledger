@@ -1,32 +1,21 @@
 from django.shortcuts import render,  redirect
 from django.http import HttpResponse
 from django.contrib import messages
-import time
 import csv
 import json
 from .models import Student,AttendanceRecord
 from django.utils import timezone
 from datetime import timedelta
 
+from django.core.mail import send_mail
+from django.conf import settings
+from django.utils.timezone import localtime
+
 # Create your views here.
 
 def home(request):
     return render(request, "main/index.html")
 
-def verify(request):
-    if request.method == 'POST':
-        password = request.POST.get('password')
-        if password == 'idea@piet':
-            
-            
-            return redirect("register")
-        else:
-            messages.warning(request, "wrong password")
-        
-            return redirect(verify)
-            
-            
-    return render(request, "main/verify.html")
 
 def register_view(request):
     if request.method == 'POST':
@@ -73,12 +62,18 @@ def sign_out(request):
                 sign_in_time = attendance_record.sign_in_time
                 sign_out_time = timezone.now()
                 duration = sign_out_time - sign_in_time
-                if duration >= timedelta(minutes=1):  # Ensuring at least one minute of work
+                
+                # Check if the student worked for at least 1 minute
+                if duration >= timedelta(minutes=0):
                     # Calculate the minutes worked
                     minutes_worked = duration.total_seconds() / 60
                     attendance_record.sign_out_time = sign_out_time
                     attendance_record.minutes_worked = round(minutes_worked)
                     attendance_record.save()
+
+                    # Send email notification to the student
+                    send_sign_out_email(student, sign_in_time, sign_out_time, minutes_worked)
+                    
                     return redirect('home')
                 else:
                     messages.warning(request, "You must work for at least one minute before signing out.")
@@ -91,6 +86,109 @@ def sign_out(request):
             return render(request, 'main/sign_out.html', {'error': 'Invalid registration ID.'})
     else:
         return render(request, 'main/sign_out.html')
+
+# Helper function to send email after sign out
+def send_sign_out_email(student, sign_in_time, sign_out_time, minutes_worked):
+    subject = "Thank you for working in the Idea Lab"
+    
+    # HTML email content with basic styling and graphics
+    html_message = f"""
+    <html>
+    <head>
+        <style>
+            body {{
+                font-family: Arial, sans-serif;
+                background-color: #f4f4f9;
+                padding: 20px;
+            }}
+            .email-container {{
+                max-width: 600px;
+                margin: 0 auto;
+                background-color: #ffffff;
+                border-radius: 8px;
+                padding: 30px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }}
+            .header {{
+                text-align: center;
+                background-color: #2d87f0;
+                padding: 20px;
+                border-radius: 8px;
+                color: #ffffff;
+            }}
+            .header h1 {{
+                margin: 0;
+                font-size: 24px;
+            }}
+            .content {{
+                padding: 20px;
+                color: #333;
+            }}
+            .content p {{
+                line-height: 1.6;
+            }}
+            .footer {{
+                text-align: center;
+                font-size: 12px;
+                color: #888;
+                margin-top: 20px;
+            }}
+            .footer a {{
+                color: #2d87f0;
+                text-decoration: none;
+            }}
+            .button {{
+                display: inline-block;
+                background-color: #2d87f0;
+                color: white;
+                padding: 10px 20px;
+                border-radius: 5px;
+                text-decoration: none;
+            }}
+        </style>
+    </head>
+    <body>
+        <div class="email-container">
+            <div class="header">
+                <h1>Thank You for Your Contribution!</h1>
+            </div>
+            <div class="content">
+                <p>Dear {student.full_name},</p>
+                <p>We would like to extend our sincere thanks for your valuable time and effort in the Idea Lab on {localtime(sign_in_time).date()}.</p>
+
+                <h3>Your Session Details:</h3>
+                <ul>
+                    <li><strong>Sign-In Time:</strong> {localtime(sign_in_time).strftime('%H:%M')}</li>
+                    <li><strong>Sign-Out Time:</strong> {localtime(sign_out_time).strftime('%H:%M')}</li>
+                    <li><strong>Total Time Worked:</strong> {round(minutes_worked)} minutes</li>
+                </ul>
+
+                <p>Your contributions help us improve the lab's environment and support your peers in their projects. We look forward to seeing you again!</p>
+
+                <p>Thank you for being an important part of Team Idea Lab.</p>
+                <p><a href="https://www.piet.poornima.org/AICTE_IDEA_lab.html" class="button">Visit Idea Lab</a></p>
+            </div>
+            <div class="footer">
+                <p>&copy; {localtime(timezone.now()).year} Team Idea Lab. All rights reserved.</p>
+                <p>Have questions? <a href="mailto:aicte.idealab@poornima.org">Contact Us</a></p>
+            </div>
+        </div>
+    </body>
+    </html>
+    """
+
+    recipient_list = [student.email_id]
+
+    # Send the email using Django's built-in send_mail function
+    send_mail(
+        subject,
+        "This email requires HTML support",  # Fallback plain text message
+        settings.DEFAULT_FROM_EMAIL,
+        recipient_list,
+        fail_silently=False,
+        html_message=html_message,
+    )
+
     
 def display(request):
     # Fetch all students from the database

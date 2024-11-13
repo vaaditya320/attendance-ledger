@@ -5,6 +5,7 @@ from django.db import models
 class Student(models.Model):
     full_name = models.CharField(max_length=100)
     registration_id = models.CharField(max_length=100, unique=True)
+    email_id = models.EmailField(max_length=100, default="")
     
 
     def __str__(self):
