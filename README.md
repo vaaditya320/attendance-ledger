@@ -135,6 +135,38 @@ Since you are running Gunicorn **manually**:
 - **Nginx Config File**: `/etc/nginx/sites-available/attendance`
 - **Gunicorn Socket**: `/home/ubuntu/projects/attendance/attendance.sock`
 
+- 
+### Next Steps (Optional):
+
+#### 1. Restrict Access to Static Files:
+You can also add authentication to the static files directory by including the `auth_basic` configuration in the `/static/` location block in Nginx.
+
+```nginx
+location /static/ {
+    auth_basic "Restricted Access";
+    auth_basic_user_file /etc/nginx/.htpasswd;
+    alias /home/ubuntu/projects/attendance/staticfiles/;
+}
+```
+
+#### 2. Add More Users:
+To add more users to your `.htpasswd` file, run the following command (without the `-c` flag):
+
+```bash
+sudo htpasswd /etc/nginx/.htpasswd anotheruser
+```
+
+This will prompt you for the password for the new user.
+
+#### 3. Remove Users:
+To remove a user, you can simply delete the corresponding line from the `.htpasswd` file or use `htpasswd -D` to delete a user:
+
+```bash
+sudo htpasswd -D /etc/nginx/.htpasswd username
+```
+
+
 ---
 
 Now your application is live! You can always reconnect to your screen session to manage the running Gunicorn process.
+
