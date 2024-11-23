@@ -44,8 +44,12 @@
    ```
 
 4. Update `.env` file with Mailjet credentials.
+   ```bash
+   MAILJET_API_KEY = "your-mailjey-api-key"
+   MAILJET_API_SECRET = "your-mailjey-api-secret"
+   ```
 
-5. Modify `settings.py`:
+6. Modify `settings.py`:
    - `DEBUG = False`
    - `ALLOWED_HOSTS = ["attendance.aadityavinayak.in.net"]`
    - `STATIC_ROOT = "/home/ubuntu/projects/attendance/staticfiles"`
