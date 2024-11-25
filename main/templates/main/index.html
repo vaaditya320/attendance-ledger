@@ -5,37 +5,54 @@
 {% block title %}Attendance Tracking System{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
+<div class="container mt-2" style="max-width: 800px; margin:auto; background: #fff; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
     <!-- Welcome Message -->
     <div class="text-center mb-4">
-        <h2 id="Welcome" class="font-weight-bold text-primary">Welcome to A.I.C.T.E I.D.E.A Lab</h2>
-        <p class="text-muted">Manage your attendance efficiently and effortlessly</p>
-    </div>
+        <h2 id="Welcome" style="font-size: 2rem; font-weight: 700; color: #0056b3;">Welcome to AICTE Idea Lab </h2>
+        <p style="font-size: 1rem; color: #ffffff; background-color: #0056b3; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); padding: 5px; border-radius: 8px; max-width: 400px; margin: auto; text-align: center;">
+            Manage your attendance efficiently and effortlessly
+          </p>
+          
+              </div>
 
     <!-- Action Buttons Row 1 -->
     <div class="row text-center mt-5">
         <div class="col-md-6 mb-4">
-            <a href="sign-in" class="btn btn-outline-primary btn-lg w-100 py-3">
-                <i class="fas fa-sign-in-alt mr-2"></i> Sign In
+            <a href="sign-in" class="btn btn-outline-primary btn-lg w-100 py-3" 
+               style="border-radius: 6px; font-size: 1.25rem; font-weight: 600; transition: all 0.3s ease; text-decoration: none; border: 1px solid #0056b3; color: #0056b3; display: inline-block;"
+               onmouseover="this.style.backgroundColor='#0056b3'; this.style.color='#fff';"
+               onmouseout="this.style.backgroundColor=''; this.style.color='#0056b3';">
+                <i class="fas fa-sign-in-alt mr-2" style="font-size: 1.5rem; margin-right: 0.5rem;"></i> Sign In
             </a>
         </div>
+        
         <div class="col-md-6 mb-4">
-            <a href="sign-out" class="btn btn-outline-danger btn-lg w-100 py-3">
-                <i class="fas fa-sign-out-alt mr-2"></i> Sign Out
+            <a href="sign-out" class="btn btn-outline-danger btn-lg w-100 py-3" 
+               style="border-radius: 6px; font-size: 1.25rem; font-weight: 600; transition: all 0.3s ease; text-decoration: none; border: 1px solid #dc3545; color: #dc3545; display: inline-block;"
+               onmouseover="this.style.backgroundColor='#dc3545'; this.style.color='#fff';"
+               onmouseout="this.style.backgroundColor=''; this.style.color='#dc3545';">
+                <i class="fas fa-sign-out-alt mr-2" style="font-size: 1.5rem; margin-right: 0.5rem;"></i> Sign Out
             </a>
         </div>
     </div>
 
     <!-- Action Buttons Row 2 -->
-    <div class="row text-center mt-3">
+    <div class="row text-center mt-4">
         <div class="col-md-6 mb-4">
-            <a href="ledger" class="btn btn-warning btn-lg w-100 py-3">
-                <i class="fas fa-book mr-2"></i> Ledger
+            <a href="ledger" class="btn btn-warning btn-lg w-100 py-3" 
+               style="border-radius: 6px; font-size: 1.25rem; font-weight: 600; transition: all 0.3s ease; text-decoration: none; background-color: #ffc107; color: #343a40; display: inline-block; border: 1px solid #ffc107;"
+               onmouseover="this.style.backgroundColor='white'; this.style.color='#ffc107'; this.style.borderColor='#ffc107';"
+               onmouseout="this.style.backgroundColor='#ffc107'; this.style.color='#343a40'; this.style.borderColor='#ffc107';">
+                <i class="fas fa-book mr-2" style="font-size: 1.5rem; margin-right: 0.5rem;"></i> Ledger
             </a>
         </div>
+        
         <div class="col-md-6 mb-4">
-            <a href="display" class="btn btn-success btn-lg w-100 py-3">
-                <i class="fas fa-chart-bar mr-2"></i> Display
+            <a href="display" class="btn btn-success btn-lg w-100 py-3" 
+               style="border-radius: 6px; font-size: 1.25rem; font-weight: 600; transition: all 0.3s ease; text-decoration: none; background-color: #28a745; color: #fff; display: inline-block; border: 1px solid #28a745;"
+               onmouseover="this.style.backgroundColor='white'; this.style.color='#28a745'; this.style.borderColor='#28a745';"
+               onmouseout="this.style.backgroundColor='#28a745'; this.style.color='#fff'; this.style.borderColor='#28a745';">
+                <i class="fas fa-chart-bar mr-2" style="font-size: 1.5rem; margin-right: 0.5rem;"></i> Display
             </a>
         </div>
     </div>
@@ -43,4 +60,5 @@
 
 <!-- FontAwesome and Bootstrap Icons for a more professional look -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
 {% endblock %}

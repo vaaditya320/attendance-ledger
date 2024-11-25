@@ -1,65 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block title %}Attendance Tracking System{% endblock %}</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Paytone+One&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Gentona&display=swap"
+      rel="stylesheet"
+    />
+
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: beige !important;
-        }
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: beige !important;
+        overflow: hidden; /* Prevent scrollbars for the animated background */
+      }
 
-        nav {
-            background-color: #007bff;
-            color: #fff;
-            padding: 10px 20px;
-            text-align: center;
-            
-        }
+      nav {
+        /* background-color:#3498db; Professional blue shade */
+        margin-top: 5px;
+        color: #fff;
+        padding: 15px 15px;
+        text-align: center; /* Center align text */
+        display: flex;
+        justify-content: center; /* Center the h1 */
+        align-items: center; /* Vertically center the h1 */
+        /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); Subtle shadow for elevation */
+      }
 
-        nav h1 {
-            margin: 0;
-            font-size: 24px;
-        }
+      nav h1 {
+        text-shadow: 5px 5px 15px #0077d7; /* Horizontal and vertical shadow with blur */
+        font-size: 32px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        font-family: "Paytone One", sans-serif;
+        margin: 0;
+      }
 
-        nav p {
-            margin: 0;
-            font-size: 18px;
-        }
+      /* Background Animation Div */
+      .animated-bg {
+        width: 100%;
+        height: 100%;
+        background: lightblue;
+        position: fixed; /* Ensure it spans the entire viewport */
+        top: 0;
+        left: 0;
+        z-index: -1; /* Position it behind all content */
+        overflow: hidden;
+      }
 
-        .container {
-            max-width: 600px;
-            margin: 50px auto;
-            text-align: center;
-        }
+      .animated-bg::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, #3498db 10%, transparent 20%),
+          radial-gradient(circle, transparent 10%, #3498db 20%);
+        background-size: 30px 30px; /* Adjust the size of the pattern */
+        animation: moveBackground 40s linear infinite; /* Adjust the animation duration and timing function */
+      }
 
-        
-
-        
-        /* Handwritten font */
-        #Welcome {
-            font-family: 'Indie Flower', cursive;
-            font-size: 50px;
-            font-weight: bold;
+      @keyframes moveBackground {
+        0% {
+          transform: translate(0, 0);
         }
+        100% {
+          transform: translate(20%, 20%);
+        }
+      }
+
+      .navbar-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .navbar-logo {
+        height: 50px; /* Adjust the size of the logo */
+        margin-right: 10px; /* Space between logo and text */
+      }
+
+      .container {
+        position: relative; /* Ensure it stays above the background */
+        z-index: 2;
+        max-width: 800px; /* Increased the width slightly for better alignment */
+        margin: 20px auto;
+        padding: 20px;
+        background: rgba(
+          255,
+          255,
+          255,
+          0.9
+        ); /* Added a subtle background to improve readability */
+        border-radius: 10px; /* Added rounded corners for aesthetic */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+
+      /* Handwritten font */
+      #Welcome {
+        font-family: "Gentona", sans-serif; /* Unique and attractive for headings */
+        font-size: 50px;
+        font-weight: bold;
+        color: #0056b3; /* Optional: Customize color as per your theme */
+        text-align: center;
+      }
     </style>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <!-- Import Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
-</head>
-<body>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Animated Background -->
+    <div class="animated-bg"></div>
+
+    <!-- Navigation Bar -->
     <nav>
+      <div class="navbar-container">
+        <!-- Logo Image -->
+        <!-- <img src="logo.png" alt="Logo" class="navbar-logo"> -->
+
+        <!-- Heading Text -->
         <h1>POORNIMA INSTITUTE OF ENGINEERING & TECHNOLOGY</h1>
+      </div>
     </nav>
-    
+
+    <!-- Content Container -->
     <div class="container">
-        {% block content %}
-        <!-- Default content -->
-        {% endblock %}
+      {% block content %}
+      <!-- Default content -->
+      {% endblock %}
     </div>
-</body>
+  </body>
 </html>

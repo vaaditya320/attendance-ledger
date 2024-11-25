@@ -34,7 +34,6 @@ def sign_in(request):
     if request.method == 'POST':
         registration_id = request.POST.get('registration_id')
         registration_id.upper()
-        registration_id.strip()
         try:
             student = Student.objects.get(registration_id=registration_id)
             # Check if the student is already signed in
@@ -56,8 +55,6 @@ def sign_in(request):
 def sign_out(request):
     if request.method == 'POST':
         registration_id = request.POST.get('registration_id')
-        registration_id.upper()
-        registration_id.strip()
         try:
             student = Student.objects.get(registration_id=registration_id)
             if AttendanceRecord.objects.filter(student=student, sign_out_time=None).exists():

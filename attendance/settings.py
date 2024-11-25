@@ -26,9 +26,8 @@ load_dotenv()
 SECRET_KEY = 'django-insecure-kl0^wvv*3q*7brdbtw#rk0@-87fr#$9@*xaqgm86bxphn81-r$'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-# ALLOWED_HOSTS = ["attendance.aadityavinayak.in.net"]
 ALLOWED_HOSTS = ["*"]
 
 
@@ -56,10 +55,6 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'attendance.urls'
-
-# CSRF_TRUSTED_ORIGINS = [
-#     'https://attendance.aadityavinayak.in.net'
-# ]
 
 TEMPLATES = [
     {
