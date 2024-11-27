@@ -1,4 +1,91 @@
 
+# Attendance App
+
+This repository contains the codebase for the Attendance Application. Below are the steps to set it up on your local machine.
+
+---
+
+## **How to Set Up Locally**
+
+### **1. Clone the Repository**
+To get started, clone this repository using the following command:
+```bash
+git clone https://github.com/vaaditya320/attendance-ledger.git
+```
+
+---
+
+### **2. Navigate to the Project Directory**
+Change into the project directory:
+```bash
+cd attendance-ledger
+```
+
+---
+
+### **3. Create a Virtual Environment**
+Set up a Python virtual environment for the project:
+```bash
+python3 -m venv venv
+```
+
+Activate the virtual environment:
+- On **Linux/Mac**:
+  ```bash
+  source venv/bin/activate
+  ```
+- On **Windows**:
+  ```bash
+  .\venv\Scripts\activate
+  ```
+
+---
+
+### **4. Install Requirements**
+Install the necessary Python dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+### **5. Set Up Environment Variables**
+Create a `.env` file in the root directory of the project and add the following environment variables:
+```bash
+MAILJET_API_KEY=your-mailjet-api-key
+MAILJET_SECRET_KEY=your-mailjet-secret-key
+```
+Replace the placeholder values with your actual keys and secrets.
+
+---
+
+### **6. Apply Migrations**
+Run the following command to apply database migrations:
+```bash
+python manage.py migrate
+```
+
+---
+
+### **7. Run the Development Server**
+Start the development server:
+```bash
+python manage.py runserver
+```
+
+The application will be available at `http://127.0.0.1:8000/`.
+
+---
+
+### **8. Access Admin Panel (Optional)**
+To access the Django admin panel, create a superuser:
+```bash
+python manage.py createsuperuser
+```
+
+Follow the prompts to set up an admin account. Then navigate to `http://127.0.0.1:8000/admin` to log in.
+
+
 # Step-by-Step Deployment Journey
 
 ---
