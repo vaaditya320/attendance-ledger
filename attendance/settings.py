@@ -82,10 +82,21 @@ WSGI_APPLICATION = 'attendance.wsgi.application'
 
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'attendance',
+        'USER': 'avnadmin',
+        'PASSWORD': os.getenv('AVNADMIN_PASSWORD'),
+        'HOST': 'testing-vaaditya320-cea8.e.aivencloud.com',
+        'PORT': '16391',
     }
 }
 
@@ -136,12 +147,13 @@ STATICFILES_DIRS = [
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'in-v3.mailjet.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = os.getenv('MAILJET_API_KEY')
-EMAIL_HOST_PASSWORD = os.getenv('MAILJET_API_SECRET')
-DEFAULT_FROM_EMAIL = 'vaaditya320@gmail.com'
+EMAIL_HOST = 'smtp.gmail.com'  # Use Gmail's SMTP server
+EMAIL_PORT = 587  # Port for TLS (use 465 for SSL)
+EMAIL_USE_TLS = True  # Use TLS encryption
+EMAIL_HOST_USER = 'vaaditya320@gmail.com'  # Your Gmail address
+EMAIL_HOST_PASSWORD = os.getenv('GMAIL_APP_PASSWORD')  # Your Gmail App Password
+DEFAULT_FROM_EMAIL = 'vaaditya320@gmail.com'  # Default sender address
+
 
 
 
