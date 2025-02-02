@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-kl0^wvv*3q*7brdbtw#rk0@-87fr#$9@*xaqgm86bxphn81-r$
 DEBUG = True
 
 # ALLOWED_HOSTS = ["attendance.aadityavinayak.in.net"]
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["attendance.aadityavinayak.in.net"]
 
 
 # Application definition
@@ -57,9 +57,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'attendance.urls'
 
-# CSRF_TRUSTED_ORIGINS = [
-#     'https://attendance.aadityavinayak.in.net'
-# ]
+CSRF_TRUSTED_ORIGINS = ['https://attendance.aadityavinayak.in.net']
 
 TEMPLATES = [
     {
